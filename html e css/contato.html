@@ -37,10 +37,53 @@
         <input type="text" name="nomesobrenome" id="nomesobrenome" />
 
         <label for="email">E-mail</label>
-        <input type="email" name="email" id="email" />
+        <input type="email" name="email" id="email" class="input-padrao" />
 
         <label for="telefone">Telefone</label>
-        <input type="text" name="telefone" id="telefone" />
+        <input type="text" name="telefone" id="telefone" class="input-padrao" />
+
+        <label for="mensagem">Mensagem</label>
+        <textarea
+          id="mensagem"
+          cols="30"
+          rows="10"
+          class="input-padrao"
+        ></textarea>
+
+        <div>
+          <p>Como prefere nosso contato</p>
+          <label for="radio-email"
+            ><input
+              type="radio"
+              id="radio-email"
+              value="email"
+              name="contato"
+            />email</label
+          >
+
+          <label for="radio-telefone">
+            <input
+              type="radio"
+              id="radio-telefone"
+              value="telefone"
+              name="contato"
+            />Telefone</label
+          >
+
+          <label for="radio-whatsapp"
+            ><input
+              type="radio"
+              id="radio-whatsapp"
+              value="whatsapp"
+              name="contato"
+            />Whatsapp</label
+          >
+        </div>
+
+        <label class="checkbox">
+          <input type="checkbox" />
+          Gostaria de receber nossas novidades por email</label
+        >
 
         <input type="submit" value="Enviar formulário" />
       </form>

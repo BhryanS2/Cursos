@@ -95,15 +95,18 @@ form {
 }
 
 form label,
-form input {
+form p {
   display: block;
-}
-
-form label {
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-form input {
+.input-padrao {
+  margin-bottom: 20px;
+  padding: 10px 25px;
+  width: 50%;
+}
+
+.checkbox {
   margin-bottom: 20px;
 }
