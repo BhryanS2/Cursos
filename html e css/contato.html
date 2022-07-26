@@ -40,7 +40,7 @@
         <input type="email" name="email" id="email" class="input-padrao" />
 
         <label for="telefone">Telefone</label>
-        <input type="text" name="telefone" id="telefone" class="input-padrao" />
+        <input type="tel" name="telefone" id="telefone" class="input-padrao" />
 
         <label for="mensagem">Mensagem</label>
         <textarea
@@ -51,7 +51,7 @@
         ></textarea>
 
         <div>
-          <p>Como prefere nosso contato</p>
+          <p>Como prefere nosso contato?</p>
           <label for="radio-email"
             ><input
               type="radio"
@@ -79,10 +79,18 @@
             />Whatsapp</label
           >
         </div>
+        <div>
+          <p>Qual horário prefere ser atendido?</p>
+          <select>
+            <option>Manhã</option>
+            <option>Tarde</option>
+            <option>Noite</option>
+          </select>
+        </div>
 
         <label class="checkbox">
           <input type="checkbox" />
-          Gostaria de receber nossas novidades por email</label
+          Gostaria de receber nossas novidades por email?</label
         >
 
         <input type="submit" value="Enviar formulário" />
