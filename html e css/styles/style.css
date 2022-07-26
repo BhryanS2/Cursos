@@ -95,7 +95,7 @@ form {
 }
 
 form label,
-form p {
+form legend {
   display: block;
   font-size: 20px;
   margin-bottom: 10px;
@@ -109,4 +109,38 @@ form p {
 
 .checkbox {
   margin: 20px 0;
+}
+
+.enviar {
+  width: 40%;
+  padding: 15px 0;
+  background-color: #ffa500;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  transition: 1s all;
+  cursor: pointer;
+}
+
+.enviar:hover {
+  background-color: #c78c19;
+  transform: scale(1.2);
+}
+
+table {
+  margin: 20px 0 40px;
+}
+
+thead {
+  background-color: #555;
+  color: #fff;
+  font-weight: bold;
+}
+
+td,
+th {
+  border: 1px solid #000;
+  padding: 8px 15px;
 }

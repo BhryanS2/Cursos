@@ -34,13 +34,27 @@
     <main>
       <form>
         <label for="nomesobrenome">Nome e sobrenome</label>
-        <input type="text" name="nomesobrenome" id="nomesobrenome" />
+        <input type="text" name="nomesobrenome" id="nomesobrenome" required />
 
         <label for="email">E-mail</label>
-        <input type="email" name="email" id="email" class="input-padrao" />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          class="input-padrao"
+          placeholder="seuemail@dominio.com"
+          required
+        />
 
         <label for="telefone">Telefone</label>
-        <input type="tel" name="telefone" id="telefone" class="input-padrao" />
+        <input
+          type="tel"
+          name="telefone"
+          id="telefone"
+          class="input-padrao"
+          placeholder="(xx) xxxxx-xxxx"
+          required
+        />
 
         <label for="mensagem">Mensagem</label>
         <textarea
@@ -48,10 +62,11 @@
           cols="30"
           rows="10"
           class="input-padrao"
+          required
         ></textarea>
 
-        <div>
-          <p>Como prefere nosso contato?</p>
+        <fieldset>
+          <legend>Como prefere nosso contato?</legend>
           <label for="radio-email"
             ><input
               type="radio"
@@ -76,25 +91,48 @@
               id="radio-whatsapp"
               value="whatsapp"
               name="contato"
+              checked
             />Whatsapp</label
           >
-        </div>
-        <div>
-          <p>Qual horário prefere ser atendido?</p>
+        </fieldset>
+        <fieldset>
+          <legend>Qual horário prefere ser atendido?</legend>
           <select>
             <option>Manhã</option>
             <option>Tarde</option>
             <option>Noite</option>
           </select>
-        </div>
+        </fieldset>
 
         <label class="checkbox">
-          <input type="checkbox" />
+          <input type="checkbox" checked />
           Gostaria de receber nossas novidades por email?</label
         >
 
-        <input type="submit" value="Enviar formulário" />
+        <input type="submit" value="Enviar formulário" class="enviar" />
       </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Dia</th>
+            <th>Horário</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Segunda</td>
+            <td>8h - 20h</td>
+          </tr>
+          <tr>
+            <td>Quarta</td>
+            <td>8h - 20h</td>
+          </tr>
+          <tr>
+            <td>Sexta</td>
+            <td>8h - 20h</td>
+          </tr>
+        </tbody>
+      </table>
     </main>
 
     <footer>
