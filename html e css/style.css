@@ -6,17 +6,24 @@ body {
   width: 100%;
 }
 
+.titulo-principal {
+  padding-left: 20px;
+}
+
 .principal {
   background-color: #ccc;
   padding: 30px;
 }
 
-h1,
+.titulo-centralizado {
+  text-align: center;
+}
+
 p {
   text-align: center;
 }
 
-p:nth-child(2) {
+#missao {
   font-size: 20px;
 }
 
@@ -30,10 +37,6 @@ em strong {
 
 .beneficios {
   background-color: #fff;
-}
-
-h2 {
-  text-align: center;
 }
 
 ul {
