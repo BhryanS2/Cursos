@@ -2,6 +2,15 @@ body {
   background-color: #ccc;
 }
 
+#banner {
+  width: 100%;
+}
+
+.principal {
+  background-color: #ccc;
+  padding: 30px;
+}
+
 h1,
 p {
   text-align: center;
@@ -13,4 +22,25 @@ p:nth-child(2) {
 
 em strong {
   color: #f00;
+}
+
+.itens {
+  font-style: italic;
+}
+
+.beneficios {
+  background-color: #fff;
+}
+
+h2 {
+  text-align: center;
+}
+
+ul {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.imagem-beneficios {
+  width: 50%;
 }
