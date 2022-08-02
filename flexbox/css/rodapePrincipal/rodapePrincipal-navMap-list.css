@@ -1,0 +1,5 @@
+.rodapePrincipal-navMap-list {
+  display: flex;
+  flex-flow: column wrap;
+  height: 255px;
+}
