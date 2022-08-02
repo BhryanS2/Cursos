@@ -1,3 +1,4 @@
 .rodapePrincipal-contatoForm-fieldset {
   display: flex;
+  justify-content: center;
 }

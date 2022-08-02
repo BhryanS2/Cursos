@@ -2,3 +2,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 800px) {
+  .rodapePrincipal-patrocinadores .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
