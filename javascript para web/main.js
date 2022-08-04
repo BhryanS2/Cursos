@@ -1,3 +1,4 @@
+
 const teclas = document.querySelectorAll(".tecla");
 const soundsClick = [];
 const soundsKey = [];
