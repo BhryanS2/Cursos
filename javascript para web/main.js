@@ -1,44 +1,50 @@
-const buttons = document.querySelectorAll(".tecla");
-const memoryAudios = [
-  { sound: "sounds/keyq.wav", audio: document.getElementById("som_tecla_pom") },
-  {
-    sound: "sounds/keyw.wav",
-    audio: document.getElementById("som_tecla_clap"),
-  },
-  { sound: "sounds/keye.wav", audio: document.getElementById("som_tecla_tim") },
-  {
-    sound: "sounds/keya.wav",
-    audio: document.getElementById("som_tecla_puff"),
-  },
-  {
-    sound: "sounds/keys.wav",
-    audio: document.getElementById("som_tecla_splash"),
-  },
-  {
-    sound: "sounds/keyd.wav",
-    audio: document.getElementById("som_tecla_toim"),
-  },
-  { sound: "sounds/keyz.wav", audio: document.getElementById("som_tecla_psh") },
-  { sound: "sounds/keyx.wav", audio: document.getElementById("som_tecla_tic") },
-  { sound: "sounds/keyc.wav", audio: document.getElementById("som_tecla_tom") },
-];
+const teclas = document.querySelectorAll(".tecla");
+const soundsClick = [];
+const soundsKey = [];
 
-function playAudio(audio = "") {
-  const audioToplay = memoryAudios.find((e) => e.sound === audio);
-  if (!audioToplay) return;
+function handleButtonClick(event) {
+  const target = event.target;
+  const instrument = target.classList[1];
+  const findSound = soundsClick.find(
+    (sound) => sound.instrument === instrument
+  );
+  if (findSound) {
+    const sound = findSound.audio;
+    sound.currentTime = 0;
+    sound.play();
+    return;
+  }
+  const audio = document.querySelector(`#som_${instrument}`);
+  if (!audio) return;
+  soundsClick.push({
+    instrument,
+    audio,
+  });
 
-  audioToplay.audio.currentTime = 0;
-  audioToplay.audio.play();
-  console.log(audioToplay);
-  const som = audioToplay.audio.id.split("_")[2];
-  const btn = document.querySelector(`button.tecla_${som}`);
-  btn.focus();
+  const sound = audio;
+  sound.currentTime = 0;
+  sound.play();
 }
 
+teclas.forEach((tecla) => {
+  tecla.addEventListener("click", handleButtonClick);
+});
+
 document.addEventListener("keydown", (e) => {
-  const key = e.key;
-  const keyLower = key.toLowerCase();
-  const sound = `sounds/key${keyLower}.wav`;
-  if (!memoryAudios.find((e) => e.sound === sound)) return;
-  playAudio(sound);
+  const key = String(e.key).toLowerCase();
+  const findSound = soundsKey.find((sound) => sound.key === key);
+  if (findSound) {
+    findSound.audio.play();
+    return;
+  }
+  const soundPath = `sounds/key${key}.wav`;
+  const audio = document.querySelector(`audio[src="${soundPath}"]`);
+  if (!audio) return;
+  soundsKey.push({
+    key,
+    audio,
+  });
+  const sound = audio;
+  sound.currentTime = 0;
+  sound.play();
 });
