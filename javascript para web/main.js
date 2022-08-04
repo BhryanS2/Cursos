@@ -33,16 +33,30 @@ teclas.forEach((tecla) => {
 document.addEventListener("keydown", (e) => {
   const key = String(e.key).toLowerCase();
   const findSound = soundsKey.find((sound) => sound.key === key);
+  soundsKey.forEach((sound) => {
+    if (sound.button.classList.contains("ativa")) {
+      sound.button.classList.remove("ativa");
+    }
+  });
+
   if (findSound) {
-    findSound.audio.play();
+    const sound = findSound.audio;
+    sound.currentTime = 0;
+    sound.play();
+    findSound.button.classList.add("ativa");
     return;
   }
   const soundPath = `sounds/key${key}.wav`;
   const audio = document.querySelector(`audio[src="${soundPath}"]`);
   if (!audio) return;
+  const audioId = audio.id.split("_")[2];
+  const button = document.querySelector(`button.tecla.tecla_${audioId}`);
+  if (!button) return;
+  button.classList.add("ativa");
   soundsKey.push({
     key,
     audio,
+    button,
   });
   const sound = audio;
   sound.currentTime = 0;
