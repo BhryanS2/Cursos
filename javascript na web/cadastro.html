@@ -72,7 +72,8 @@
                 type="password"
                 placeholder="Senha"
                 required
-                minlength="6"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$"
+                title="A senha deve conter 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caracter especial e pelo menos 6 caracteres"
               />
               <label class="input-label" for="senha">Senha</label>
               <span class="input-mensagem-erro"
