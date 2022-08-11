@@ -1,4 +1,4 @@
-import { valida } from "./validaNascimento.js";
+import { valida } from "./valida.js";
 
 const inputs = document.querySelectorAll("input");
 
