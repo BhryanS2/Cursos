@@ -2,6 +2,13 @@ const validadores = {
   dataNascimneto: (input) => validaDataDeNascimento(input),
 };
 
+const tiposDeErro = [
+  "valueMissing",
+  "typeMismatch",
+  "patternMismatch",
+  "customError",
+];
+
 const mensagensDeErro = {
   nome: {
     valueMissing: "O campo nome não pode estar vazio.",
@@ -30,18 +37,33 @@ export function valida(input) {
 
   if (input.validity.valid) {
     input.parentElement.classList.remove("input-container--invalido");
+    input.parentElement.querySelector(".input-mensagem-erro").innerHTML = "";
   } else {
     input.parentElement.classList.add("input-container--invalido");
+    input.parentElement.querySelector(".input-mensagem-erro").innerHTML =
+      mostrarMensagemDeErro(tipoDeInput, input);
   }
+}
+
+function mostrarMensagemDeErro(tipoDeInput, input) {
+  let mensagem = "";
+
+  tiposDeErro.forEach((erro) => {
+    if (input.validity[erro]) {
+      mensagem = mensagensDeErro[tipoDeInput][erro];
+    }
+  });
+
+  return mensagem;
 }
 
 function validaDataDeNascimento(input) {
   const dataRecebida = new Date(input.value);
-  let messagem = maiorQue18(dataRecebida)
+  let mensagem = maiorQue18(dataRecebida)
     ? ""
     : "Você precisa ter mais de 18 anos";
 
-  input.setCustomValidity(messagem);
+  input.setCustomValidity(mensagem);
 }
 
 function maiorQue18(data = new Date()) {
