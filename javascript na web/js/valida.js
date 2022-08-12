@@ -84,7 +84,7 @@ function maiorQue18(data = new Date()) {
 function validaCPF(input) {
   const cpfFormatado = input.value.replace(/[\D]/g, "");
   let mensagem = "";
-  if (!checaCPFRepetidos(cpfFormatado)) {
+  if (!checaCPFRepetidos(cpfFormatado) || !checaEstruturaCPF(cpfFormatado)) {
     mensagem = "O CPF digitado não é válido";
   }
   input.setCustomValidity(mensagem);
@@ -113,4 +113,34 @@ function checaCPFRepetidos(cpf) {
   });
 
   return cpfValido;
+}
+
+function checaDigitoVerficador(cpf = "", multiplicador) {
+  if (multiplicador >= 12) return true;
+
+  let multiplicadorInicial = multiplicador;
+  let soma = 0;
+  const cpfSemDigitos = cpf.substring(0, multiplicador - 1).split("");
+  const digitoVerificador = cpf.charAt(multiplicador - 1);
+
+  for (let contador = 0; multiplicadorInicial > 1; multiplicadorInicial--) {
+    soma = soma + cpfSemDigitos[contador] * multiplicadorInicial;
+    contador++;
+  }
+
+  if (digitoVerificador === confirmaDigito(soma)) {
+    return checaDigitoVerficador(cpf, multiplicador + 1);
+  }
+
+  return false;
+}
+
+function checaEstruturaCPF(cpf) {
+  const multiplicador = 10;
+
+  return checaDigitoVerficador(cpf, multiplicador);
+}
+
+function confirmaDigito(soma) {
+  return 11 - (soma % 11);
 }
