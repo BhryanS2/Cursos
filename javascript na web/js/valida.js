@@ -1,5 +1,7 @@
 const validadores = {
   dataNascimneto: (input) => validaDataDeNascimento(input),
+  cpf: (input) => validaCPF(input),
+  cep: (input) => recuperarCEP(input),
 };
 
 const tiposDeErro = [
@@ -33,6 +35,16 @@ const mensagensDeErro = {
   cep: {
     valueMissing: "O campo CEP não pode estar vazio.",
     patternMismatch: "O CEP digitado não é válido.",
+    customError: "O CEP digitado não foi encontrado.",
+  },
+  logradouro: {
+    valueMissing: "O campo logradouro não pode estar vazio.",
+  },
+  cidade: {
+    valueMissing: "O campo cidade não pode estar vazio.",
+  },
+  estado: {
+    valueMissing: "O campo estado não pode estar vazio.",
   },
 };
 
@@ -88,7 +100,8 @@ function maiorQue18(data = new Date()) {
 function validaCPF(input) {
   const cpfFormatado = input.value.replace(/[\D]/g, "");
   let mensagem = "";
-  if (!checaCPFRepetidos(cpfFormatado) || !checaEstruturaCPF(cpfFormatado)) {
+
+  if (!checaCPFRepetidos(cpfFormatado) || checaEstruturaCPF(cpfFormatado)) {
     mensagem = "O CPF digitado não é válido";
   }
   input.setCustomValidity(mensagem);
@@ -146,5 +159,45 @@ function checaEstruturaCPF(cpf) {
 }
 
 function confirmaDigito(soma) {
-  return 11 - (soma % 11);
+  const resto = soma % 11;
+  const digito = resto < 2 ? 0 : 11 - resto;
+  return digito.toString();
+  // return 11 - (soma % 11);
+}
+
+function recuperarCEP(input) {
+  const cep = input.value.replace(/[\D]/g, "");
+  const url = `https://viacep.com.br/ws/${cep}/json/`;
+  const options = {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "content-type": "application/json;charset=utf-8",
+    },
+  };
+  if (input.validity.patternMismatch || input.validity.valueMissing) {
+    return;
+  }
+  fetch(url, options)
+    .then(async (response) => {
+      const dados = await response.json();
+      if (dados.erro) {
+        input.setCustomValidity("CEP não encontrado");
+        return;
+      }
+      input.setCustomValidity("");
+      preencheComposComCep(dados);
+      return;
+    })
+    .catch((error) => console.error(error));
+}
+
+function preencheComposComCep(dados) {
+  const logradouro = document.querySelector("[data-tipo='logradouro']");
+  const cidade = document.querySelector("[data-tipo='cidade']");
+  const estado = document.querySelector("[data-tipo='estado']");
+
+  logradouro.value = dados.logradouro;
+  cidade.value = dados.localidade;
+  estado.value = dados.uf;
 }
