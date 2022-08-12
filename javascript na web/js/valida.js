@@ -46,6 +46,12 @@ const mensagensDeErro = {
   estado: {
     valueMissing: "O campo estado não pode estar vazio.",
   },
+  preco: {
+    valueMissing: "O campo preço não pode estar vazio.",
+  },
+  descricao: {
+    valueMissing: "O campo descrição não pode estar vazio.",
+  },
 };
 
 export function valida(input) {
