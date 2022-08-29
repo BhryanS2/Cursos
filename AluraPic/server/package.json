@@ -13,6 +13,6 @@
     "express": "^4.12.3"
   },
   "devDependencies": {
-    "url-loader": "^0.5.7"
+    "url-loader": "^4.1.1"
   }
 }
