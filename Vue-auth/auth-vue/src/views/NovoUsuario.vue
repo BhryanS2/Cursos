@@ -7,6 +7,10 @@
         <input type="text" class="form-control" v-model="usuario.nome" />
       </div>
       <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" v-model="usuario.email" />
+      </div>
+      <div class="form-group">
         <label for="senha">Senha</label>
         <input type="password" class="form-control" v-model="usuario.senha" />
       </div>
@@ -16,8 +20,10 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  data: function() {
+  data() {
     return {
       usuario: {
         nome: "",
@@ -25,6 +31,21 @@ export default {
         email: "",
       },
     };
+  },
+  methods: {
+    enviarFormulario() {
+      axios
+        .post("http://localhost:8000/auth/register")
+        .then((response) => {
+          this.$router.push({
+            name: "login",
+          });
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
