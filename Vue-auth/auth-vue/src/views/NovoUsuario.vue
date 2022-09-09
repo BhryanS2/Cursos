@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <h1>Novo usuário</h1>
-    <form @submit.prevent="enviarFormulario">
+    <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <label for="nome">Nome</label>
         <input type="text" class="form-control" v-model="usuario.nome" />
       </div>
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email">E-mail</label>
         <input type="email" class="form-control" v-model="usuario.email" />
       </div>
       <div class="form-group">
@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
@@ -33,18 +31,11 @@ export default {
     };
   },
   methods: {
-    enviarFormulario() {
-      axios
-        .post("http://localhost:8000/auth/register")
-        .then((response) => {
-          this.$router.push({
-            name: "login",
-          });
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    handleSubmit() {
+      this.$http
+        .post("auth/register", this.usuario)
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
     },
   },
 };

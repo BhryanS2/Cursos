@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import Gerentes from "../views/Gerentes.vue";
 import Home from "../views/Home.vue";
 import NovoUsuario from "../views/NovoUsuario.vue";
-import Login from "../views/login.vue";
+import Login from "../views/Login.vue";
 
 Vue.use(VueRouter);
 

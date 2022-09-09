@@ -13,7 +13,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <BarraLogado v-if="usuarioLogado" />
+      <BarraLogado v-if="usuarioestaLogado" />
       <BarraDeslogado v-else />
     </div>
   </nav>
@@ -28,8 +28,9 @@ export default {
     BarraLogado,
     BarraDeslogado,
   },
+
   computed: {
-    usuarioLogado() {
+    usuarioestaLogado() {
       return Boolean(localStorage.getItem("token"));
     },
   },

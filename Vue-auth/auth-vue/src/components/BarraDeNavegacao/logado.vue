@@ -1,5 +1,5 @@
 <template>
-  <ul class="navbar-nav mr-auto" v-if="usuarioLogado">
+  <ul class="navbar-nav mr-auto">
     <li class="nav-item">
       <router-link class="nav-link" to="/">Home</router-link>
     </li>

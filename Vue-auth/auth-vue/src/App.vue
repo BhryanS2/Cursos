@@ -1,9 +1,18 @@
 <template>
   <div id="app">
-    <BarradeNavegacao />
+    <BarraDeNavegacao />
     <router-view />
   </div>
 </template>
+
+<script>
+import BarraDeNavegacao from "./components/BarraDeNavegacao/index.vue";
+export default {
+  components: {
+    BarraDeNavegacao,
+  },
+};
+</script>
 
 <style>
 .navbar {
@@ -16,11 +25,3 @@
   color: #000;
 }
 </style>
-<script>
-import BarradeNavegacao from "@/components/BarraDeNavegacao";
-export default {
-  components: {
-    BarradeNavegacao,
-  },
-};
-</script>

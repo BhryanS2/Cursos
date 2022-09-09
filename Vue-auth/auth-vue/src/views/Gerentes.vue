@@ -26,12 +26,8 @@ export default {
   mounted() {
     this.$http
       .get("gerentes")
-      .then((response) => {
-        this.gerentes = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then((response) => (this.gerentes = response.data))
+      .catch((erro) => console.log(erro));
   },
 };
 </script>
