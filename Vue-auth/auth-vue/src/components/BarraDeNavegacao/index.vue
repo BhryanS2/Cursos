@@ -31,7 +31,8 @@ export default {
 
   computed: {
     usuarioestaLogado() {
-      return Boolean(localStorage.getItem("token"));
+      const isLogado = this.$store.state.token;
+      return Boolean(isLogado);
     },
   },
 };

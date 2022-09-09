@@ -34,7 +34,13 @@ export default {
     handleSubmit() {
       this.$http
         .post("auth/register", this.usuario)
-        .then((response) => console.log(response))
+        .then((response) => {
+          this.$store.commit("LOGIN_USER", {
+            token: response.data.access_token,
+            user: response.data.user,
+          });
+          this.$router.push({ name: "gerentes" });
+        })
         .catch((error) => console.log(error));
     },
   },

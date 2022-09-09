@@ -27,16 +27,10 @@ export default {
   },
   methods: {
     login() {
-      this.$http
-        .post("auth/login", this.usuario)
-        .then((response) => {
-          this.$store.commit("login_user", {
-            token: response.data.access_token,
-            user: response.data.user,
-          });
-          this.$router.push({ name: "gerentes" });
-        })
-        .catch((erro) => console.log(erro));
+      this.$store.dispatch("loginUser", this.usuario).then(() => {
+        // this.$router.go(-1);
+        this.$router.push({ name: "home" });
+      });
     },
   },
 };
