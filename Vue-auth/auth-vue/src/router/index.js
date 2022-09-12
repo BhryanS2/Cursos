@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import Gerentes from "../views/Gerentes.vue";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
-import provider from "@/provider";
+import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -43,7 +43,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((routeTo, routeFrom, next) => {
-  if (!routeTo.meta.public && !provider.state.token) {
+  if (!routeTo.meta.public && !store.state.token) {
     return next({
       name: "login",
     });
