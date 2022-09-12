@@ -11,9 +11,9 @@
         <input type="password" class="form-control" v-model="usuario.senha" />
       </div>
       <button type="submit" class="btn btn-primary brn-block">Logar</button>
-      <router-link :to="{ name: 'novo.usuario' }"
-        >Não possui um cadastro, cadastre-se aqui!</router-link
-      >
+      <router-link :to="{ name: 'novo.usuario' }">
+        Não possui um cadastro, cadastre-se aqui!
+      </router-link>
     </form>
   </div>
 </template>
@@ -28,8 +28,7 @@ export default {
   methods: {
     login() {
       this.$store.dispatch("loginUser", this.usuario).then(() => {
-        // this.$router.go(-1);
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: "gerentes" });
       });
     },
   },

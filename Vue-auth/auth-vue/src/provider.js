@@ -10,8 +10,8 @@ const state = {
 };
 
 const mutations = {
-  LOGIN_USER(state, { token, user }) {
-    state.token = token;
+  LOGIN_USER(state, { access_token, user }) {
+    state.token = access_token;
     state.user = user;
   },
   LOGOUT_USER(state) {

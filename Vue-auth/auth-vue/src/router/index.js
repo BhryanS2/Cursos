@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Gerentes from "../views/Gerentes.vue";
 import Home from "../views/Home.vue";
-import NovoUsuario from "../views/NovoUsuario";
 import Login from "../views/Login.vue";
 import provider from "@/provider";
 
@@ -22,9 +21,10 @@ const routes = [
   {
     path: "/cadastre-se",
     name: "novo.usuario",
-    component: NovoUsuario,
+    component: () =>
+      import(/* webpackChunkName: "registrar" */ "../views/NovoUsuario.vue"),
     meta: {
-      publica: true,
+      public: true,
     },
   },
   {
@@ -32,7 +32,7 @@ const routes = [
     name: "login",
     component: Login,
     meta: {
-      publica: true,
+      public: true,
     },
   },
 ];
@@ -43,9 +43,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((routeTo, routeFrom, next) => {
-  if (!routeTo.meta.publica && !provider.state.token) {
+  if (!routeTo.meta.public && !provider.state.token) {
     return next({
-      path: "/login",
+      name: "login",
     });
   }
   next();

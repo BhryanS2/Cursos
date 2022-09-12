@@ -8,7 +8,9 @@
 </template>
 
 <script>
+import { logoutMixin } from "../minixins";
 export default {
   name: "home",
+  mixins: [logoutMixin],
 };
 </script>
