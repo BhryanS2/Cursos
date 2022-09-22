@@ -10,6 +10,7 @@
           type="text"
           class="input"
           placeholder="Qual tarefa você deseja iniciar?"
+          v-model="tarefa.titulo"
         />
       </div>
     </div>
@@ -20,17 +21,17 @@
         <section>
           <strong>{{ tempoDecorrido }}</strong>
         </section>
-        <button class="button">
+        <button class="button" @click="iniciarTarefa">
           <span class="icon">
             <i class="fas fa-play"></i>
           </span>
-          <span @click="iniciarTarefa">play</span>
+          <span>play</span>
         </button>
-        <button class="button">
+        <button class="button" @click="finalizarTarefa">
           <span class="icon">
             <i class="fas fa-stop"></i>
           </span>
-          <span @click="finalizarTarefa">stop</span>
+          <span>stop</span>
         </button>
       </div>
     </div>
@@ -63,6 +64,7 @@ export default defineComponent({
 
   methods: {
     iniciarTarefa() {
+      if (this.cronometro) return;
       this.cronometro = setInterval(() => {
         this.tarefa.tempoEmSegundos++;
       }, 1000);
@@ -70,8 +72,9 @@ export default defineComponent({
     finalizarTarefa() {
       clearInterval(this.cronometro);
       this.tarefa.status = "finalizada";
-      this.tarefa.tempoEmSegundos = 0;
       this.$emit("tarefa-finalizada", this.tarefa);
+      this.tarefa.titulo = "";
+      this.tarefa.tempoEmSegundos = 0;
     },
   },
 });
