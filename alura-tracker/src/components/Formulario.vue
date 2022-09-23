@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box formulario">
     <div class="columns">
       <div
         class="column is-8"
@@ -10,74 +10,48 @@
           type="text"
           class="input"
           placeholder="Qual tarefa você deseja iniciar?"
-          v-model="tarefa.titulo"
+          v-model="descricaoTarefa"
         />
       </div>
     </div>
     <div class="column">
-      <div
-        class="is-flex is-align-items-center is-justify-content-space-between"
-      >
-        <section>
-          <strong>{{ tempoDecorrido }}</strong>
-        </section>
-        <button class="button" @click="iniciarTarefa">
-          <span class="icon">
-            <i class="fas fa-play"></i>
-          </span>
-          <span>play</span>
-        </button>
-        <button class="button" @click="finalizarTarefa">
-          <span class="icon">
-            <i class="fas fa-stop"></i>
-          </span>
-          <span>stop</span>
-        </button>
-      </div>
+      <Temporizador @tarefaFinalizada="finalizarTarefa" />
     </div>
   </div>
 </template>
 <script lang="ts">
+import { propsTarefa } from "@/types/typeTarefa";
 import { defineComponent } from "vue";
+import Temporizador from "./Temporizador.vue";
 
 export default defineComponent({
   name: "formulario-tarefa",
+  emits: ["tarefaAcabada"],
   data() {
     return {
-      tarefa: {
-        titulo: "",
-        tempoEmSegundos: 0,
-        status: "iniciada",
-      },
-      cronometro: 0,
+      descricaoTarefa: "",
     };
   },
-
-  computed: {
-    tempoDecorrido(): string {
-      const dateIso = new Date(
-        this.tarefa.tempoEmSegundos * 1000
-      ).toISOString();
-      return dateIso.substring(11, 19);
-    },
+  components: {
+    Temporizador,
   },
 
   methods: {
-    iniciarTarefa() {
-      if (this.cronometro) return;
-      this.cronometro = setInterval(() => {
-        this.tarefa.tempoEmSegundos++;
-      }, 1000);
-    },
-    finalizarTarefa() {
-      clearInterval(this.cronometro);
-      this.tarefa.status = "finalizada";
-      this.$emit("tarefa-finalizada", this.tarefa);
-      this.tarefa.titulo = "";
-      this.tarefa.tempoEmSegundos = 0;
+    finalizarTarefa(tempoEmSegundos: number) {
+      this.$emit("tarefaAcabada", {
+        descricao: this.descricaoTarefa,
+        durancaoEmSegundos: tempoEmSegundos,
+      } as propsTarefa);
+      this.descricaoTarefa = "";
     },
   },
 });
 </script>
 
-<style scoped></style>
+<style>
+.formulario {
+  color: var(--texto-primario);
+  background-color: var(--bg-primario);
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
+}
+</style>

@@ -3,6 +3,7 @@
     <h1>
       <img src="@/assets/logo.png" alt="" />
     </h1>
+    <button class="button" @click="alterarTema">{{ getTextMode }}</button>
   </header>
 </template>
 
@@ -10,6 +11,25 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "BarraLateral",
+  emits: ["temaAlterado"],
+  data() {
+    return {
+      modoEscuro: false,
+    };
+  },
+  computed: {
+    getTextMode(): string {
+      const light = "Ativar modo escuro";
+      const dark = "Ativar modo claro";
+      return this.modoEscuro ? light : dark;
+    },
+  },
+  methods: {
+    alterarTema() {
+      this.modoEscuro = !this.modoEscuro;
+      this.$emit("temaAlterado", this.modoEscuro as boolean);
+    },
+  },
 });
 </script>
 
@@ -19,6 +39,7 @@ header {
   background: #0d3b66;
   width: 100%;
   height: 100vh;
+  text-align: center;
 }
 @media only screen and (max-width: 768px) {
   header {
