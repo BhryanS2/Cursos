@@ -1,4 +1,3 @@
-import { projectProps } from "@/types/typeProjeto";
 import { createStore, Store, useStore as VuexStore } from "vuex";
 import { InjectionKey } from "vue";
 import {
@@ -7,8 +6,13 @@ import {
   EXCLUIR_PROJETO,
 } from "./mutationsType";
 
+import { projectProps } from "@/types/typeProjeto";
+import { notificacoesProps } from "@/types/notificacoes";
+import { notificacoesType } from "@/types/notificacoes";
+
 type storeProps = {
   projetos: projectProps[];
+  notificacoes: notificacoesProps[];
 };
 
 export const key: InjectionKey<Store<storeProps>> = Symbol();
@@ -16,6 +20,26 @@ export const key: InjectionKey<Store<storeProps>> = Symbol();
 export const store = createStore<storeProps>({
   state: {
     projetos: [],
+    notificacoes: [
+      {
+        id: 1,
+        texto: "Notficacao de sucesso",
+        titulo: "Sucesso",
+        tipo: notificacoesType.SUCESSO,
+      },
+      {
+        id: 2,
+        texto: "Notficacao de falha",
+        titulo: "Falha",
+        tipo: notificacoesType.FALHA,
+      },
+      {
+        id: 3,
+        texto: "Notficacao de alerta",
+        titulo: "Alerta",
+        tipo: notificacoesType.ALERTA,
+      },
+    ],
   },
   mutations: {
     [ADICIONA_PROJETO](state, nomeDoPeojeto: string) {
