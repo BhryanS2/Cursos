@@ -4,6 +4,7 @@ import {
   ADICIONA_PROJETO,
   ALTERAR_PROJETO,
   EXCLUIR_PROJETO,
+  NOTIFICAR,
 } from "./mutationsType";
 
 import { projectProps } from "@/types/typeProjeto";
@@ -20,26 +21,7 @@ export const key: InjectionKey<Store<storeProps>> = Symbol();
 export const store = createStore<storeProps>({
   state: {
     projetos: [],
-    notificacoes: [
-      {
-        id: 1,
-        texto: "Notficacao de sucesso",
-        titulo: "Sucesso",
-        tipo: notificacoesType.SUCESSO,
-      },
-      {
-        id: 2,
-        texto: "Notficacao de falha",
-        titulo: "Falha",
-        tipo: notificacoesType.FALHA,
-      },
-      {
-        id: 3,
-        texto: "Notficacao de alerta",
-        titulo: "Alerta",
-        tipo: notificacoesType.ALERTA,
-      },
-    ],
+    notificacoes: [],
   },
   mutations: {
     [ADICIONA_PROJETO](state, nomeDoPeojeto: string) {
@@ -58,6 +40,15 @@ export const store = createStore<storeProps>({
     [EXCLUIR_PROJETO](state, id: string) {
       const index = state.projetos.findIndex((projeto) => projeto.id === id);
       state.projetos.splice(index, 1);
+    },
+    [NOTIFICAR](state, payload: notificacoesProps) {
+      payload.id = new Date().getTime();
+      state.notificacoes.push(payload);
+      setTimeout(() => {
+        state.notificacoes = state.notificacoes.filter(
+          (notificacao) => notificacao.id !== payload.id
+        );
+      }, 3000);
     },
   },
 });
