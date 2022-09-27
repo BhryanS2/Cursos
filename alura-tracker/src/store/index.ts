@@ -9,7 +9,6 @@ import {
 
 import { projectProps } from "@/types/typeProjeto";
 import { notificacoesProps } from "@/types/notificacoes";
-import { notificacoesType } from "@/types/notificacoes";
 
 type storeProps = {
   projetos: projectProps[];

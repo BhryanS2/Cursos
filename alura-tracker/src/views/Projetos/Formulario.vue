@@ -17,11 +17,8 @@
 
 <script lang="ts">
 import { useStore } from "@/store";
-import {
-  ALTERAR_PROJETO,
-  ADICIONA_PROJETO,
-  NOTIFICAR,
-} from "@/store/mutationsType";
+import { notificacaoMixin } from "@/minixs/notificar";
+import { ALTERAR_PROJETO, ADICIONA_PROJETO } from "@/store/mutationsType";
 import { notificacoesType } from "@/types/notificacoes";
 import { defineComponent } from "vue";
 
@@ -32,6 +29,7 @@ export default defineComponent({
       type: String,
     },
   },
+  mixins: [notificacaoMixin],
 
   mounted() {
     if (this.id) {
@@ -58,11 +56,7 @@ export default defineComponent({
         this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
       }
       this.nomeDoProjeto = "";
-      this.store.commit(NOTIFICAR, {
-        titulo: "Novo projeto",
-        texto: "Projeto salvo com sucesso",
-        tipo: notificacoesType.SUCESSO,
-      });
+      this.notificar(notificacoesType.SUCESSO, "Exelente", "Projeto criado");
       this.$router.push("/projetos");
     },
   },
