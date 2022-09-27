@@ -20,6 +20,12 @@ export const store = createStore<storeProps>({
       } as projectProps;
       state.projetos.push(novoProjeto);
     },
+    ALTERAR_PROJETO(state, payload: projectProps) {
+      const index = state.projetos.findIndex(
+        (projeto) => projeto.id === payload.id
+      );
+      state.projetos[index] = payload;
+    },
   },
 });
 
