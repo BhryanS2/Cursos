@@ -10,7 +10,7 @@
           type="text"
           class="input"
           placeholder="Qual tarefa você deseja iniciar?"
-          v-model="descricaoTarefa"
+          v-model="descricao"
         />
       </div>
       <div class="column is-3">
@@ -37,7 +37,7 @@
 import { key } from "@/store";
 import { propsTarefa } from "@/types/typeTarefa";
 
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 
 import { useStore } from "vuex";
 
@@ -46,31 +46,32 @@ import Temporizador from "./Temporizador.vue";
 export default defineComponent({
   name: "formulario-tarefa",
   emits: ["tarefaAcabada"],
-  data() {
-    return {
-      descricaoTarefa: "",
-      idProjeto: "",
-    };
-  },
   components: {
     Temporizador,
   },
 
-  methods: {
-    finalizarTarefa(tempoEmSegundos: number) {
-      this.$emit("tarefaAcabada", {
-        descricao: this.descricaoTarefa,
-        durancaoEmSegundos: tempoEmSegundos,
-        projeto: this.projetos.find((proj) => proj.id == this.idProjeto),
-      } as propsTarefa);
-      this.descricaoTarefa = "";
-    },
-  },
-
-  setup() {
+  setup(props, { emit }) {
     const store = useStore(key);
+
+    const projetos = computed(() => store.state.projeto.projetos);
+
+    const descricao = ref("");
+    const idProjeto = ref("");
+
+    const finalizarTarefa = (tempoEmSegundos: number) => {
+      emit("tarefaAcabada", {
+        descricao: descricao.value,
+        durancaoEmSegundos: tempoEmSegundos,
+        projeto: projetos.value.find((proj) => proj.id == idProjeto.value),
+      } as propsTarefa);
+      descricao.value = "";
+    };
+
     return {
-      projetos: computed(() => store.state.projeto.projetos),
+      projetos,
+      descricao,
+      idProjeto,
+      finalizarTarefa,
     };
   },
 });
