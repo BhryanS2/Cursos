@@ -40,7 +40,7 @@
 import { useNotification } from "@/hooks/useNotification";
 import { useStore } from "@/store";
 import { OBTER_PROJETOS } from "@/store/actionsType";
-import { EXCLUIR_PROJETO } from "@/store/mutationsType";
+import { EXCLUI_PROJETO } from "@/store/mutationsType";
 import { notificacoesType } from "@/types/notificacoes";
 
 import { computed, defineComponent } from "vue";
@@ -53,7 +53,7 @@ export default defineComponent({
     const { notificar } = useNotification();
     store.dispatch(OBTER_PROJETOS);
     return {
-      projetos: computed(() => store.state.projetos),
+      projetos: computed(() => store.state.projeto.projetos),
       store,
       notificar,
     };
@@ -61,7 +61,7 @@ export default defineComponent({
 
   methods: {
     excluir(id: string) {
-      this.store.dispatch(EXCLUIR_PROJETO, id).then(() => {
+      this.store.dispatch(EXCLUI_PROJETO, id).then(() => {
         this.notificar(
           notificacoesType.SUCESSO,
           "Exelente",

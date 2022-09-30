@@ -57,6 +57,7 @@ import {
   CADASTRAR_TAREFA,
   OBTER_TAREFAS,
 } from "@/store/actionsType";
+
 import { computed } from "@vue/reactivity";
 
 export default defineComponent({
@@ -98,7 +99,7 @@ export default defineComponent({
     const store = useStore();
     store.dispatch(OBTER_TAREFAS);
     return {
-      tarefas: computed(() => store.state.tarefas),
+      tarefas: computed(() => store.state.tarefa.tarefas),
       store,
     };
   },

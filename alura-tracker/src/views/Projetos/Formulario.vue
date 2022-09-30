@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { useStore } from "@/store";
-import { ALTERAR_PROJETO_ACTION, CADASTRA_PROJETO } from "@/store/actionsType";
+import { ALTERAR_PROJETO, CADASTRAR_PROJETO } from "@/store/actionsType";
 
 import { useNotification } from "@/hooks/useNotification";
 
@@ -34,7 +34,7 @@ export default defineComponent({
   },
   mounted() {
     if (this.id) {
-      const projeto = this.store.state.projetos.find(
+      const projeto = this.store.state.projeto.projetos.find(
         (projeto) => Number(projeto.id) === Number(this.id)
       );
       this.nomeDoProjeto = projeto?.nome || "";
@@ -55,14 +55,14 @@ export default defineComponent({
     salvar() {
       if (this.id) {
         this.store
-          .dispatch(ALTERAR_PROJETO_ACTION, {
+          .dispatch(ALTERAR_PROJETO, {
             id: this.id,
             nome: this.nomeDoProjeto,
           })
           .then(() => this.sucesso("Projeto alterado"));
       } else {
         this.store
-          .dispatch(CADASTRA_PROJETO, this.nomeDoProjeto)
+          .dispatch(CADASTRAR_PROJETO, this.nomeDoProjeto)
           .then(() => this.sucesso("Projeto cadastrado"));
       }
     },
