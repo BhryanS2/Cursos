@@ -27,6 +27,12 @@ export const tarefa: Module<EstadoTarefa, storeProps> = {
     [ADICIONA_TAREFA](state, payload: propsTarefa) {
       state.tarefas.push(payload);
     },
+    [ALTERA_TAREFA](state, payload: propsTarefa) {
+      const index = state.tarefas.findIndex(
+        (tarefa) => tarefa.id === payload.id
+      );
+      state.tarefas[index] = payload;
+    },
   },
   actions: {
     [OBTER_TAREFAS]({ commit }, filtro: string | null) {

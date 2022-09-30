@@ -23,36 +23,29 @@
       :tarefa="tarefa"
       @tarefa-clicada="selectionarTarefa"
     />
-    <div class="modal is-active" v-if="tarefaSelecionada">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Editando tarefa</p>
-          <button
-            class="delete"
-            aria-label="close"
-            @click="fecharModal"
-          ></button>
-        </header>
-        <section class="modal-card-body">
-          <div class="field">
-            <label for="descricaoTarefa" class="label"> Descrição </label>
-            <input
-              type="text"
-              class="input"
-              id="descricaoTarefa"
-              v-model="tarefaSelecionada.descricao"
-            />
-          </div>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success" @click="alterarTarefa">
-            Salvar alterações
-          </button>
-          <button class="button" @click="fecharModal">Cancelar</button>
-        </footer>
-      </div>
-    </div>
+    <Modal :mostrar="tarefaSelecionada !== null" v-if="tarefaSelecionada">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Editando tarefa</p>
+        <button class="delete" aria-label="close" @click="fecharModal"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field">
+          <label for="descricaoTarefa" class="label"> Descrição </label>
+          <input
+            type="text"
+            class="input"
+            id="descricaoTarefa"
+            v-model="tarefaSelecionada.descricao"
+          />
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" @click="alterarTarefa">
+          Salvar alterações
+        </button>
+        <button class="button" @click="fecharModal">Cancelar</button>
+      </footer>
+    </Modal>
   </div>
 </template>
 
@@ -64,6 +57,8 @@ import { propsTarefa } from "@/types/typeTarefa";
 import Box from "@/components/Box.vue";
 import FormularioTarefa from "@/components/Formulario.vue";
 import Tarefa from "@/components/Tarefa.vue";
+import Modal from "@/components/Modal.vue";
+
 import { useStore } from "@/store";
 import {
   ALTERAR_TAREFA,
@@ -80,6 +75,7 @@ export default defineComponent({
     FormularioTarefa,
     Tarefa,
     Box,
+    Modal,
   },
   data() {
     return {
@@ -114,13 +110,6 @@ export default defineComponent({
     store.dispatch(OBTER_PROJETOS);
 
     const filtro = ref("");
-
-    // const tarefas = computed(() =>
-    //   store.state.tarefa.tarefas.filter((tarefa) => {
-    //     if (!filtro.value) return true;
-    //     return tarefa.descricao.includes(filtro.value);
-    //   })
-    // );
 
     watchEffect(() => {
       store.dispatch(OBTER_TAREFAS, filtro.value);
