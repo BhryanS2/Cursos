@@ -37,8 +37,11 @@
 </template>
 
 <script lang="ts">
+import { useNotification } from "@/hooks/useNotification";
 import { useStore } from "@/store";
+import { OBTER_PROJETOS } from "@/store/actionsType";
 import { EXCLUIR_PROJETO } from "@/store/mutationsType";
+import { notificacoesType } from "@/types/notificacoes";
 
 import { computed, defineComponent } from "vue";
 
@@ -47,15 +50,24 @@ export default defineComponent({
 
   setup() {
     const store = useStore();
+    const { notificar } = useNotification();
+    store.dispatch(OBTER_PROJETOS);
     return {
       projetos: computed(() => store.state.projetos),
       store,
+      notificar,
     };
   },
 
   methods: {
     excluir(id: string) {
-      this.store.commit(EXCLUIR_PROJETO, id);
+      this.store.dispatch(EXCLUIR_PROJETO, id).then(() => {
+        this.notificar(
+          notificacoesType.SUCESSO,
+          "Exelente",
+          "Projeto excluido"
+        );
+      });
     },
   },
 });

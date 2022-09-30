@@ -1,12 +1,12 @@
 <template>
   <form @submit.prevent="salvar">
     <div class="field">
-      <label for="nomeDoProjeto" class="label"> Nome do Projeto </label>
+      <label :for="nomeDoProjeto" class="label"> Nome do Projeto </label>
       <input
         type="text"
         class="input"
         v-model="nomeDoProjeto"
-        id="nomeDoProjet"
+        :id="nomeDoProjeto"
       />
     </div>
     <div class="field">
@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { useStore } from "@/store";
-import { ALTERAR_PROJETO, ADICIONA_PROJETO } from "@/store/mutationsType";
+import { ALTERAR_PROJETO_ACTION, CADASTRA_PROJETO } from "@/store/actionsType";
 
 import { useNotification } from "@/hooks/useNotification";
 
@@ -35,7 +35,7 @@ export default defineComponent({
   mounted() {
     if (this.id) {
       const projeto = this.store.state.projetos.find(
-        (projeto) => projeto.id === this.id
+        (projeto) => Number(projeto.id) === Number(this.id)
       );
       this.nomeDoProjeto = projeto?.nome || "";
     }
@@ -47,18 +47,24 @@ export default defineComponent({
     };
   },
   methods: {
+    sucesso(title: string) {
+      this.nomeDoProjeto = "";
+      this.notificar(notificacoesType.SUCESSO, "Exelente", title);
+      this.$router.push("/projetos");
+    },
     salvar() {
       if (this.id) {
-        this.store.commit(ALTERAR_PROJETO, {
-          id: this.id,
-          nome: this.nomeDoProjeto,
-        });
+        this.store
+          .dispatch(ALTERAR_PROJETO_ACTION, {
+            id: this.id,
+            nome: this.nomeDoProjeto,
+          })
+          .then(() => this.sucesso("Projeto alterado"));
       } else {
-        this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
+        this.store
+          .dispatch(CADASTRA_PROJETO, this.nomeDoProjeto)
+          .then(() => this.sucesso("Projeto cadastrado"));
       }
-      this.nomeDoProjeto = "";
-      this.notificar(notificacoesType.SUCESSO, "Exelente", "Projeto criado");
-      this.$router.push("/projetos");
     },
   },
   setup() {

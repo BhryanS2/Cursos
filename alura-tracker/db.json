@@ -1,0 +1,40 @@
+{
+  "projetos": [
+    {
+      "id": 1,
+      "nome": "Alura tracker"
+    },
+    {
+      "id": 2,
+      "nome": "Projeto 2"
+    },
+    {
+      "id": 3,
+      "nome": "Projeto 3"
+    },
+    {
+      "nome": "asdawdawdawd",
+      "id": 4
+    }
+  ],
+  "tarefas": [
+    {
+      "id": 1,
+      "duracaoEmSegundos": 3600,
+      "descricao": "Alteração ",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura tracker"
+      }
+    },
+    {
+      "descricao": "Alteração",
+      "durancaoEmSegundos": 1,
+      "projeto": {
+        "id": 2,
+        "nome": "Projeto 2"
+      },
+      "id": 2
+    }
+  ]
+}
