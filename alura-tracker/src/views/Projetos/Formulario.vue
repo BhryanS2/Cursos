@@ -16,14 +16,13 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, ref } from "vue";
 import { useStore } from "@/store";
 import { ALTERAR_PROJETO, CADASTRAR_PROJETO } from "@/store/actionsType";
 
 import { useNotification } from "@/hooks/useNotification";
 
 import { notificacoesType } from "@/types/notificacoes";
-
-import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "formulario-projeto",
@@ -32,20 +31,7 @@ export default defineComponent({
       type: String,
     },
   },
-  mounted() {
-    if (this.id) {
-      const projeto = this.store.state.projeto.projetos.find(
-        (projeto) => Number(projeto.id) === Number(this.id)
-      );
-      this.nomeDoProjeto = projeto?.nome || "";
-    }
-  },
 
-  data() {
-    return {
-      nomeDoProjeto: "",
-    };
-  },
   methods: {
     sucesso(title: string) {
       this.nomeDoProjeto = "";
@@ -67,12 +53,21 @@ export default defineComponent({
       }
     },
   },
-  setup() {
+  setup(props) {
     const store = useStore();
     const { notificar } = useNotification();
+    const nomeDoProjeto = ref("");
+
+    if (props.id) {
+      const projeto = store.state.projeto.projetos.find(
+        (projeto) => Number(projeto.id) === Number(props.id)
+      );
+      nomeDoProjeto.value = projeto?.nome || "";
+    }
     return {
       store,
       notificar,
+      nomeDoProjeto,
     };
   },
 });
