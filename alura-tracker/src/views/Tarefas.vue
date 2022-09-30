@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, watchEffect } from "vue";
 
 import { propsTarefa } from "@/types/typeTarefa";
 
@@ -115,14 +115,22 @@ export default defineComponent({
 
     const filtro = ref("");
 
-    const tarefas = computed(() =>
-      store.state.tarefa.tarefas.filter((tarefa) => {
-        if (!filtro.value) return true;
-        return tarefa.descricao.includes(filtro.value);
-      })
-    );
+    // const tarefas = computed(() =>
+    //   store.state.tarefa.tarefas.filter((tarefa) => {
+    //     if (!filtro.value) return true;
+    //     return tarefa.descricao.includes(filtro.value);
+    //   })
+    // );
 
-    return { tarefas, store, filtro };
+    watchEffect(() => {
+      store.dispatch(OBTER_TAREFAS, filtro.value);
+    });
+
+    return {
+      tarefas: computed(() => store.state.tarefa.tarefas),
+      store,
+      filtro,
+    };
   },
 });
 </script>

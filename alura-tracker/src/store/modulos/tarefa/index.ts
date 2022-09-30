@@ -29,17 +29,23 @@ export const tarefa: Module<EstadoTarefa, storeProps> = {
     },
   },
   actions: {
-    async [OBTER_TAREFAS]({ commit }) {
-      const response = await http.get("tarefas");
-      return commit(DEFINI_TAREFAS, response.data);
+    [OBTER_TAREFAS]({ commit }, filtro: string | null) {
+      let url = "tarefas";
+      if (filtro) {
+        url += `?descricao=${filtro}`;
+      }
+
+      http.get(url).then((response) => commit(DEFINI_TAREFAS, response.data));
     },
-    async [CADASTRAR_TAREFA]({ commit }, payload: propsTarefa) {
-      const response = await http.post("/tarefas", payload);
-      return commit(ADICIONA_TAREFA, response.data);
+    [CADASTRAR_TAREFA]({ commit }, payload: propsTarefa) {
+      http
+        .post("/tarefas", payload)
+        .then((response) => commit(ADICIONA_TAREFA, response.data));
     },
-    async [ALTERAR_TAREFA]({ commit }, payload: propsTarefa) {
-      const response = await http.put(`/tarefas/${payload.id}`, payload);
-      return commit(ALTERA_TAREFA, response.data);
+    [ALTERAR_TAREFA]({ commit }, payload: propsTarefa) {
+      http
+        .put(`/tarefas/${payload.id}`, payload)
+        .then((response) => commit(ALTERA_TAREFA, response.data));
     },
   },
 };
