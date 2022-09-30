@@ -21,7 +21,7 @@
     {
       "id": 1,
       "duracaoEmSegundos": 3600,
-      "descricao": "Alteração ",
+      "descricao": "Teste",
       "projeto": {
         "id": 1,
         "nome": "Alura tracker"

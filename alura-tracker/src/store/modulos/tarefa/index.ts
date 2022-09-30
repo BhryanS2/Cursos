@@ -31,7 +31,6 @@ export const tarefa: Module<EstadoTarefa, storeProps> = {
   actions: {
     async [OBTER_TAREFAS]({ commit }) {
       const response = await http.get("tarefas");
-      console.log(response);
       return commit(DEFINI_TAREFAS, response.data);
     },
     async [CADASTRAR_TAREFA]({ commit }, payload: propsTarefa) {

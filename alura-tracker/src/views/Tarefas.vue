@@ -4,6 +4,19 @@
     <Box v-if="listaEstaVazia">
       <p>Nenhuma tarefa foi inicada 😥</p>
     </Box>
+    <div class="field">
+      <p class="control has-icons-left has-icons-right">
+        <input
+          class="input"
+          type="text"
+          placeholder="Digite para filtrar"
+          v-model="filtro"
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </p>
+    </div>
     <Tarefa
       v-for="(tarefa, index) in tarefas"
       :key="index"
@@ -55,10 +68,11 @@ import { useStore } from "@/store";
 import {
   ALTERAR_TAREFA,
   CADASTRAR_TAREFA,
+  OBTER_PROJETOS,
   OBTER_TAREFAS,
 } from "@/store/actionsType";
 
-import { computed } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 
 export default defineComponent({
   name: "App",
@@ -74,13 +88,12 @@ export default defineComponent({
   },
   computed: {
     listaEstaVazia(): boolean {
-      const tarefas = this.tarefas;
-      return tarefas.length === 0;
+      if (!this.tarefas) return true;
+      return this.tarefas.length === 0;
     },
   },
   methods: {
     adicionarTarefa(tarefa: propsTarefa) {
-      // this.tarefas.push(tarefa);
       this.store.dispatch(CADASTRAR_TAREFA, tarefa);
     },
     selectionarTarefa(tarefa: propsTarefa) {
@@ -98,10 +111,18 @@ export default defineComponent({
   setup() {
     const store = useStore();
     store.dispatch(OBTER_TAREFAS);
-    return {
-      tarefas: computed(() => store.state.tarefa.tarefas),
-      store,
-    };
+    store.dispatch(OBTER_PROJETOS);
+
+    const filtro = ref("");
+
+    const tarefas = computed(() =>
+      store.state.tarefa.tarefas.filter((tarefa) => {
+        if (!filtro.value) return true;
+        return tarefa.descricao.includes(filtro.value);
+      })
+    );
+
+    return { tarefas, store, filtro };
   },
 });
 </script>
