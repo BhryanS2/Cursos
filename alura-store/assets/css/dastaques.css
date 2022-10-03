@@ -1,0 +1,6 @@
+.destaques {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  grid-template-rows: repeat(3, calc(100% / 3));
+  height: calc(100vh - 50px);
+}
