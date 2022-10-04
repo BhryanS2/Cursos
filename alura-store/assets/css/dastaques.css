@@ -58,7 +58,7 @@
   grid-row: 3;
 }
 
-.destaques__categorias___lista {
+.destaques__categorias__lista {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
