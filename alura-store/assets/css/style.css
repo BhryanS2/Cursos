@@ -10,16 +10,25 @@
 }
 
 .cabecalho {
-  background-color: #00cc99;
+  align-items: center;
+  display: flex;
+
   grid-area: "cabecalho";
+
+  padding: 0 2rem;
 }
 
 .conteudo {
-  background-color: #ff8080;
   grid-area: "conteudo";
+
+  padding: 0 2rem;
 }
 
 .rodape {
-  background-color: #0099ff;
+  background-color: #fdf;
+  color: #333;
+  font-size: 0.8rem;
   grid-area: "rodape";
+  padding: 1rem;
+  text-align: center;
 }
