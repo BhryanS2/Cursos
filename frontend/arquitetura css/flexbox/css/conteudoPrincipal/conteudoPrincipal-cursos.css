@@ -1,0 +1,19 @@
+.conteudoPrincipal-cursos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+  place-content: center;
+}
+
+@media screen and (max-width: 800px) {
+  .conteudoPrincipal-cursos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .conteudoPrincipal-cursos {
+    grid-template-columns: 1fr;
+  }
+}

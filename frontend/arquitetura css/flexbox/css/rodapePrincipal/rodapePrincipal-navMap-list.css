@@ -1,0 +1,11 @@
+.rodapePrincipal-navMap-list {
+  display: flex;
+  flex-flow: column wrap;
+  height: 255px;
+}
+
+@media screen and (max-width: 800px) {
+  .rodapePrincipal-navMap-list {
+    height: auto;
+  }
+}
