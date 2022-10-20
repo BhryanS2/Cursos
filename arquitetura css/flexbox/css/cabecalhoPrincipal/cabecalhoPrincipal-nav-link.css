@@ -1,8 +1,0 @@
-@media screen and (max-width: 800px) {
-  .cabecalhoPrincipal-nav-link {
-    width: 100%;
-  }
-  .cabecalhoPrincipal-nav-link-app {
-    order: 1;
-  }
-}

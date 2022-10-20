@@ -1,9 +1,0 @@
-.videoSobre .container {
-  display: flex;
-}
-
-@media screen and (max-width: 800px) {
-  .videoSobre .container {
-    flex-direction: column;
-  }
-}
