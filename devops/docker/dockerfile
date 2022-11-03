@@ -1,0 +1,7 @@
+FROM node:16
+WORKDIR /app
+COPY . .
+RUN npm install 
+ENTRYPOINT  npm start
+
+# docker build -t bhryan/node-app:1.0 .

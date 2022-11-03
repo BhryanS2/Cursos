@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  mongodb: # nome do serviço, nesse caso o mongo
+    image: mongo:4.4.6
+    networks:
+      - compose-bridge
+  
+  hello-world: # nome do segundo serviço, nesse caso o alurabooks
+    image: hello-world:latest
+    container_name: hello-world
+    networks:
+      - compose-bridge
+    ports:
+      - 3000:3000
+networks: # Criação de rede para comunicação entre os containers
+  compose-bridge:
+    driver: bridge
