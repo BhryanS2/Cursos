@@ -1,0 +1,17 @@
+{
+	"ulid": "01GJ51RRNF02T80SM1QYTV1DT9",
+	"minTime": 1668744000855,
+	"maxTime": 1668751200000,
+	"stats": {
+		"numSamples": 780,
+		"numSeries": 5,
+		"numChunks": 10
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01GJ51RRNF02T80SM1QYTV1DT9"
+		]
+	},
+	"version": 1
+}

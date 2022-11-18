@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: "example-nodejs-app"
+    static_configs:
+      - targets: ["localhost:8080"]
+    
+# docker run --rm -p 9090:9090 \
+# -v `ls`/prometheus.yml:/etc/prometheus/prometheus.yml \
+# prom/prometheus:v2.20.1
