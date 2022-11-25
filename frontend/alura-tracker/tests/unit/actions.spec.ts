@@ -1,33 +1,49 @@
-import {
-  ALTERAR_PROJETO,
-  CADASTRAR_PROJETO,
-  EXCLUIR_PROJETO,
-  OBTER_PROJETOS,
-} from "@/store/actionsType";
-import Vuex from "vuex";
-import http from "@/http";
-import { store } from "@/store";
+// import {
+//   CADASTRAR_PROJETO,
+//   EXCLUIR_PROJETO,
+//   OBTER_PROJETOS,
+// } from "@/store/actionsType";
+// import Vuex from "vuex";
+// import http from "@/http";
+// import { mount, createLocalVue } from "@vue/test-utils";
 
-describe("Testando store actions", () => {
-  test("adicionando novo projeto", () => {
-    const newProjeto = {
-      nome: "Projeto 3",
-    };
+// const localVue = createLocalVue();
+// localVue.use(Vuex);
 
-    const actions = {
-      [CADASTRAR_PROJETO]: jest.fn(),
-    };
+// const store = new Vuex.Store({
+//   state: () => ({}),
+//   mutations: {},
+//   actions: {},
+//   getters: {},
+//   modules: {},
+// });
 
-    const store = new Vuex.Store({
-      actions,
-    });
+// const wrapper = mount(Component, { localVue, mocks: { $store: store } });
 
-    store.dispatch(CADASTRAR_PROJETO, newProjeto);
+// describe("Testando store actions", () => {
+//   test("adicionando novo projeto", () => {
+//     const newProjeto = {
+//       nome: "Projeto 3",
+//     };
 
-    expect(actions[CADASTRAR_PROJETO]).toHaveBeenCalled();
-    expect(actions[CADASTRAR_PROJETO]).toHaveBeenCalledWith(
-      expect.any(Object),
-      newProjeto
-    );
-  });
-});
+//     const mutations = {
+//       [CADASTRA_PROJETO]: jest.fn(),
+//     };
+
+//     const actions = {
+//       [CADASTRAR_PROJETO]: jest.fn(),
+//     };
+
+//     const store = new Vuex.Store({
+//       actions,
+//     });
+
+//     store.dispatch(CADASTRAR_PROJETO, newProjeto);
+
+//     expect(actions[CADASTRAR_PROJETO]).toHaveBeenCalled();
+//     expect(actions[CADASTRAR_PROJETO]).toHaveBeenCalledWith(
+//       expect.any(Object),
+//       newProjeto
+//     );
+//   });
+// });
