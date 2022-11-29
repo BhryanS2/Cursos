@@ -5,10 +5,7 @@
 // } from "@/store/actionsType";
 // import Vuex from "vuex";
 // import http from "@/http";
-// import { mount, createLocalVue } from "@vue/test-utils";
-
-// const localVue = createLocalVue();
-// localVue.use(Vuex);
+// import { mount } from "@vue/test-utils";
 
 // const store = new Vuex.Store({
 //   state: () => ({}),
@@ -47,3 +44,7 @@
 //     );
 //   });
 // });
+
+test("expect true be true", () => {
+  expect(true).toBe(true);
+});
