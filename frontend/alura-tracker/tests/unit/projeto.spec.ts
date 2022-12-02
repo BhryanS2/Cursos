@@ -3,7 +3,15 @@ import {
   ALTERA_PROJETO,
   EXCLUI_PROJETO,
 } from "@/store/mutationsType";
+
 import Vuex from "vuex";
+import { mount } from "@vue/test-utils";
+
+import { projectProps } from "@/types/typeProjeto";
+
+import Projetos from "@/views/Projetos.vue";
+import ProjetosForm from "@/views/Projetos/Formulario.vue";
+import ProjetosLista from "@/views/Projetos/Listas.vue";
 
 describe("Testando Projeto", () => {
   test("adicionando novo projeto", () => {
@@ -11,12 +19,12 @@ describe("Testando Projeto", () => {
       projetos: [
         { id: "1", nome: "Projeto 1" },
         { id: "2", nome: "Projeto 2" },
-      ],
+      ] as projectProps[],
     };
 
     const newProjeto = {
       nome: "Projeto 3",
-    };
+    } as projectProps;
 
     const mutations = {
       [ADICIONA_PROJETO]: jest.fn(),
@@ -27,10 +35,14 @@ describe("Testando Projeto", () => {
       mutations,
     });
 
-    store.commit(ADICIONA_PROJETO, newProjeto);
-
+    const wrapper = mount(ProjetosForm, { global: { plugins: [store] } });
+    const inputs = wrapper.findAll("input");
+    const buttonSubmit = wrapper.find("button");
+    const inputNome = inputs.at(0);
+    console.log(inputs[0].element.value);
+    inputNome?.setValue(newProjeto.nome);
+    buttonSubmit.trigger("click");
     expect(mutations[ADICIONA_PROJETO]).toHaveBeenCalled();
-    expect(mutations[ADICIONA_PROJETO]).toHaveBeenCalledWith(state, newProjeto);
   });
 
   test("alterando projeto", () => {
