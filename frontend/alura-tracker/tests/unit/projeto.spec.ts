@@ -12,6 +12,7 @@ import { projectProps } from "@/types/typeProjeto";
 import Projetos from "@/views/Projetos.vue";
 import ProjetosForm from "@/views/Projetos/Formulario.vue";
 import ProjetosLista from "@/views/Projetos/Listas.vue";
+import { CADASTRAR_PROJETO } from "@/store/actionsType";
 
 describe("Testando Projeto", () => {
   test("adicionando novo projeto", () => {
@@ -26,23 +27,36 @@ describe("Testando Projeto", () => {
       nome: "Projeto 3",
     } as projectProps;
 
-    const mutations = {
-      [ADICIONA_PROJETO]: jest.fn(),
+    const actions = {
+      [CADASTRAR_PROJETO]: jest.fn(),
+    };
+
+    const routers = {
+      push: jest.fn(),
     };
 
     const store = new Vuex.Store({
       state,
-      mutations,
+      actions,
     });
 
-    const wrapper = mount(ProjetosForm, { global: { plugins: [store] } });
+    const wrapper = mount(ProjetosForm, {
+      global: {
+        plugins: [store],
+        mocks: {
+          $router: routers,
+        },
+      },
+    });
+
     const inputs = wrapper.findAll("input");
     const buttonSubmit = wrapper.find("button");
-    const inputNome = inputs.at(0);
-    console.log(inputs[0].element.value);
+    const inputNome = inputs[0];
     inputNome?.setValue(newProjeto.nome);
     buttonSubmit.trigger("click");
-    expect(mutations[ADICIONA_PROJETO]).toHaveBeenCalled();
+
+    expect(actions[CADASTRAR_PROJETO]).toHaveBeenCalled();
+    // expect(actions[CADASTRAR_PROJETO]).toHaveBeenCalled();
   });
 
   test("alterando projeto", () => {
@@ -62,18 +76,38 @@ describe("Testando Projeto", () => {
       [ALTERA_PROJETO]: jest.fn(),
     };
 
+    const actions = {
+      [CADASTRAR_PROJETO]: jest.fn(),
+    };
+
     const store = new Vuex.Store({
       state,
       mutations,
+      actions,
     });
 
-    store.commit(ALTERA_PROJETO, projetoAlterado);
+    const wrapper = mount(ProjetosLista, {
+      global: {
+        plugins: [store],
+      },
+    });
+
+    const buttonAlterar = wrapper.findAll("button")[1];
+    buttonAlterar.trigger("click");
+
+    const wrapperForm = mount(ProjetosForm, {
+      global: {
+        plugins: [store],
+      },
+    });
+
+    const inputs = wrapperForm.findAll("input");
+    const buttonSubmit = wrapperForm.find("button");
+    const inputNome = inputs[0];
+    inputNome?.setValue(projetoAlterado.nome);
+    buttonSubmit.trigger("click");
 
     expect(mutations[ALTERA_PROJETO]).toHaveBeenCalled();
-    expect(mutations[ALTERA_PROJETO]).toHaveBeenCalledWith(
-      state,
-      projetoAlterado
-    );
   });
 
   test("excluindo projeto", () => {
