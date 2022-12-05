@@ -92,14 +92,14 @@ describe("Testando Projeto", () => {
       },
     });
 
-    const buttonAlterar = wrapper.findAll("button")[1];
-    buttonAlterar.trigger("click");
-
     const wrapperForm = mount(ProjetosForm, {
       global: {
         plugins: [store],
       },
     });
+
+    const buttonAlterar = wrapper.findAll("button")[1];
+    buttonAlterar.trigger("click");
 
     const inputs = wrapperForm.findAll("input");
     const buttonSubmit = wrapperForm.find("button");

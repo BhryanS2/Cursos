@@ -8,4 +8,3 @@
 go.work
 /vendor/
 /Godeps/
-postgres-data

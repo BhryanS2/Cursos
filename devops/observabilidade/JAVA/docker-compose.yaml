@@ -79,6 +79,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/alert.rules:/etc/prometheus/alert.rules
       - ./prometheus/prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -94,19 +95,6 @@ services:
     depends_on:
       - proxy-forum-api
 
-  grafana-forum-api:
-    image: grafana/grafana
-    container_name: grafana-forum-api
-    volumes:
-      - ./grafana:/var/lib/grafana
-    restart: unless-stopped
-    ports:
-      - 3000:3000
-    networks:
-      - monit
-    depends_on:
-      - prometheus-forum-api
-
   client-forum-api:
     build:
       context: ./client/
@@ -117,4 +105,4 @@ services:
     networks:
       - proxy
     depends_on:
-      - grafana-forum-api
+      - proxy-forum-api
